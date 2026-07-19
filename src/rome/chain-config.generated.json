@@ -1,0 +1,12 @@
+{
+  "_generated": "by scripts/build-chain-config.mts from rome-protocol/rome-registry (origin, fresh). DO NOT EDIT — run `npm run build:chain-config`.",
+  "chainSlug": "200010-hadrian",
+  "chainId": 200010,
+  "rpcUrl": "https://hadrian.testnet.romeprotocol.xyz",
+  "solanaRpc": "https://api.devnet.solana.com",
+  "romeEvmProgramId": "RPTWwELXAY4KC9ZPHhaxp7Sq1hHtU3HNEgLbSegCcWf",
+  "usdcMint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+  "wsolMint": "So11111111111111111111111111111111111111112",
+  "wsolWrapper": "0x1dece035621c65a90349b56a801068b439fa4201",
+  "bridgeWithdraw": "0x65fc94ba1045b65889f0b27d3d02e5bfbc2aee03"
+}

@@ -1,0 +1,28 @@
+Appia
+Copyright 2026 Rome Protocol
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+-------------------------------------------------------------------------------
+Third-party protocols (interoperated with, not included)
+-------------------------------------------------------------------------------
+Appia is a user interface. It composes calls to third-party Solana programs
+via their public on-chain interfaces (program IDs, instruction/account layouts)
+and to public cross-chain transport. It does NOT contain, fork, or redistribute
+the source of any of these protocols; each remains the property of its authors
+and is governed by its own license and trademarks:
+
+  Marinade (liquid staking) · Mango (lending/borrowing) · Meteora (DAMM swaps) ·
+  Wormhole · Circle CCTP.
+
+Program IDs and chain metadata are sourced from the public
+@rome-protocol/registry package.
+
+-------------------------------------------------------------------------------
+Third-party libraries
+-------------------------------------------------------------------------------
+This product depends on open-source npm packages under their respective
+licenses (Apache-2.0: @solana/web3.js, @solana/spl-token; MIT: viem, wagmi,
+@tanstack/react-query, bs58, next, react, react-dom, and others — see
+package.json and their license files). It bundles IBM Plex Mono under the SIL
+Open Font License 1.1.

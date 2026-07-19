@@ -1,0 +1,25 @@
+# deps
+node_modules/
+
+# next build output (never commit — was tracked in the crunch build)
+.next/
+out/
+
+# env + secrets (Appia reads sponsor keys from FILE PATHS, never committed)
+.env
+.env.*
+!.env.example
+*.key
+
+# build / test artifacts
+tsconfig.tsbuildinfo
+test-results/
+playwright-report/
+
+# harness scratch / session artifacts
+earn-session.key
+*.log
+coverage/
+
+# os
+.DS_Store

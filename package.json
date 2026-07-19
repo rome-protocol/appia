@@ -1,0 +1,34 @@
+{
+  "name": "appia",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 4700",
+    "build": "next build",
+    "start": "next start -p 4700",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "test:functional": "vitest run --config vitest.functional.config.ts",
+    "build:chain-config": "npx tsx scripts/build-chain-config.mts"
+  },
+  "dependencies": {
+    "@solana/spl-token": "^0.4.14",
+    "@solana/web3.js": "^1.95.0",
+    "@tanstack/react-query": "^5.101.2",
+    "bs58": "^5.0.0",
+    "next": "^15.5.20",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "viem": "^2.21.0",
+    "wagmi": "^3.6.21"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.1.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
