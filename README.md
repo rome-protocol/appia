@@ -1,6 +1,6 @@
 # Appia
 
-> **Built on [Rome Protocol](https://docs.rome.builders)** — an EVM execution environment that runs inside Solana, where Solidity apps call Solana programs atomically (CPI) and a Solana wallet can drive the same apps: one shared state, no bridge, no wrapped assets.
+> **Built on [Rome Protocol](https://docs.rome.builders)** — EVM chains that run natively inside the Solana runtime, where Solidity apps call Solana programs atomically (CPI) and Solana users drive EVM apps: two VMs, one chain, one block.
 
 **Own Solana from the wallet you already have.** Appia is a positions-first, cross-VM DeFi app. Pay USDC from your own L2 — Arbitrum, Monad, or elsewhere — and Appia buys SOL and puts it to work on Solana: staked with Marinade, lent on Mango, swapped on Meteora. The position belongs to **your key**, not to Appia.
 
@@ -45,3 +45,6 @@ Nothing is hard-coded: chain id, RPC, program id, token mints, and bridge addres
 
 - **[Rome Protocol documentation](https://docs.rome.builders)** — how EVM execution and CPI work inside Solana, and the four ways to build.
 - Companion repos worth reading: [rome-dex](https://github.com/rome-protocol/rome-dex) (a dual-lane AMM), [cardo](https://github.com/rome-protocol/cardo) (EVM-side UI for Solana protocols), and the [`@rome-protocol/sdk`](https://github.com/rome-protocol/rome-sdk-ts).
+
+## Building on Rome with an agent
+See [`AGENTS.md`](./AGENTS.md) — the Rome-specific rules a coding agent needs.
