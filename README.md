@@ -17,6 +17,13 @@ Live at **https://appia.devnet.romeprotocol.xyz**. Built with Next.js 15, TypeSc
 
 In Rome's terms, Appia is the **"from home"** pattern: reach a Rome app from your home chain and get to Solana without moving.
 
+| You can | Where it lands on Solana |
+|---|---|
+| Pay USDC from your L2 → buy + stake SOL | Marinade (mSOL position in **your** PDA) |
+| Swap | Meteora DAMM, via Rome CPI |
+| Lend | Mango |
+| Recover / claim positions | your key, always — no custody surface |
+
 ## What's in the repo
 
 ```
@@ -40,6 +47,21 @@ appia/
 ```
 
 Nothing is hard-coded: chain id, RPC, program id, token mints, and bridge addresses all resolve from the public [`@rome-protocol/registry`](https://github.com/rome-protocol/rome-registry) via `scripts/build-chain-config.mts` into a committed `src/rome/chain-config.generated.json`. Point it at another Rome chain and rebuild.
+
+## Run & test
+
+```bash
+npm install
+npm run build:chain-config   # regenerate chain config from @rome-protocol/registry
+npm run dev                  # http://localhost:4700
+npm test                     # vitest (resolver, encoders, guards)
+npm run typecheck
+npx playwright test          # e2e journeys (e2e/)
+```
+
+## License
+
+Apache-2.0 — see [LICENSE](LICENSE). Appia is an original app; third-party protocol attributions (Marinade, Mango, Meteora, Wormhole, CCTP) are in [NOTICE](NOTICE).
 
 ## Learn more
 
