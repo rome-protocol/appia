@@ -1,0 +1,16 @@
+node_modules
+.next
+.git
+.github
+tests
+e2e
+test-results
+playwright-report
+scripts
+earn-run.mts
+*.key
+.env
+.env.*
+*.log
+docs
+README.md
