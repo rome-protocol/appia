@@ -14,7 +14,7 @@
  * The recipient redeems on their L2 (permissionless completeTransfer).
  */
 import { encodeFunctionData, type Address, type Hex } from "viem";
-import { pubkeyBs58ToBytes32 } from "./rome/solana-pda.js";
+import { pubkeyBs58ToBytes32 } from "./rome/solana-pda";
 
 export const HELPER_PROGRAM = "0xff00000000000000000000000000000000000009" as Address;
 

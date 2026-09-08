@@ -21,7 +21,7 @@ import {
 import { deriveMangoAccount } from "./rome/mango-pdas";
 import { bytes32ToPublicKey, deriveAta, deriveRomeUserPda, pubkeyBs58ToBytes32 } from "./rome/solana-pda";
 import { ROME_CHAIN } from "./rome/rome-config";
-import { encodeTransferNativeToWormhole, evmRecipient32, encodeApproveSplGrant, HELPER_PROGRAM } from "./egress.js";
+import { encodeTransferNativeToWormhole, evmRecipient32, encodeApproveSplGrant, HELPER_PROGRAM } from "./egress";
 import type { RomeSigner } from "./rome-signer";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
