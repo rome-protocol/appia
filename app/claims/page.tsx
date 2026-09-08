@@ -125,7 +125,7 @@ export default function Activity() {
         }
         setPhase("Sending home from Rome…");
         await switchChainAsync({ chainId: ROME_CHAIN.chainId });
-        await deliverNative(romeSigner, { wrapper: plan.wrapper, amount: it.amount, recipientEvm: address, targetChain: plan.targetWhChainId });
+        await deliverNative(romeSigner, { wrapper: plan.wrapper, mint: plan.mint, amount: it.amount, recipientEvm: address, targetChain: plan.targetWhChainId });
         setPhase("Waiting for the guardian VAA…");
         const vaa = await findVaaByPayload(solanaTokenBridgeEmitterHex(), { toHex: address, toChain: plan.targetWhChainId });
         // Same guard: findVaaByPayload matches by payload and could return an already-redeemed VAA.

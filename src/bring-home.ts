@@ -33,6 +33,7 @@ const CHAIN_BY_WH_ID: Record<number, number> = Object.fromEntries(
 
 export interface BringHomePlan {
   wrapper: Hex;
+  mint: string; // the wrapper\'s SPL mint (base58) — bound into the user\'s approve_spl grant
   targetWhChainId: number | null;
   destTokenBridge: Hex | null;
   /** egress AND redeem are both possible for this (asset, dest) — needs a WH id + a completeTransfer bridge. */
@@ -41,12 +42,13 @@ export interface BringHomePlan {
 
 export function bringHomePlan(asset: HomeAsset, destChainId: number): BringHomePlan {
   let wrapper: Hex;
-  if (asset === "wsol") wrapper = ROME_CHAIN.wsolWrapper as Hex;
-  else if (asset === "msol") wrapper = ROME_CHAIN.msolWrapper as Hex;
+  let mint: string;
+  if (asset === "wsol") { wrapper = ROME_CHAIN.wsolWrapper as Hex; mint = ROME_CHAIN.wsolMint; }
+  else if (asset === "msol") { wrapper = ROME_CHAIN.msolWrapper as Hex; mint = ROME_CHAIN.msolMint; }
   else throw new Error(`bring-home unsupported for asset ${asset}`);
   const targetWhChainId = WH_ID_BY_CHAIN[destChainId] ?? null;
   const destTokenBridge = WORMHOLE_TOKEN_BRIDGE[destChainId] ?? null;
-  return { wrapper, targetWhChainId, destTokenBridge, supported: targetWhChainId !== null && destTokenBridge !== null };
+  return { wrapper, mint, targetWhChainId, destTokenBridge, supported: targetWhChainId !== null && destTokenBridge !== null };
 }
 
 /**

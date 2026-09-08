@@ -21,7 +21,7 @@ import {
 import { deriveMangoAccount } from "./rome/mango-pdas";
 import { bytes32ToPublicKey, deriveAta, deriveRomeUserPda, pubkeyBs58ToBytes32 } from "./rome/solana-pda";
 import { ROME_CHAIN } from "./rome/rome-config";
-import { encodeApproveWormholeBurn, encodeTransferNativeToWormhole, evmRecipient32 } from "./egress";
+import { encodeTransferNativeToWormhole, evmRecipient32, encodeApproveSplGrant, HELPER_PROGRAM } from "./egress.js";
 import type { RomeSigner } from "./rome-signer";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -148,7 +148,6 @@ export async function requestFuel(signer: RomeSigner): Promise<void> {
 // HelperProgram.create_ata(address,bytes32) at 0xFF..09 — the OPERATOR funds the ATA
 // rent (create_ata_internal signs as state.signer()); the user pays the equivalent in gas.
 // The external_auth PDA is NEVER the payer, so no PDA reserve / activation is required.
-const HELPER_PROGRAM = "0xff00000000000000000000000000000000000009" as Address;
 const CREATE_ATA_ABI = [{ name: "create_ata", type: "function", stateMutability: "nonpayable", inputs: [{ type: "address" }, { type: "bytes32" }], outputs: [] }] as const;
 
 /** ensure an ATA exists via the operator-funded primitive — idempotent, no PDA reserve.
@@ -302,18 +301,19 @@ export async function withdrawFromMango(
 }
 
 /**
- * deliver-home (v11 native egress): approveWormholeBurn + transferNativeToWormhole on
- * RomeBridgeWithdraw, both signed by the USER's own wallet, sending the mSOL/wSOL to the token
- * bridge's custody with the user's L2 wallet as the VAA recipient. The redeem on the L2 is a
+ * deliver-home (v11 native egress): the user's approve_spl(bridge, amount, mint) grant on
+ * HelperProgram, then transferNativeToWormhole on RomeBridgeWithdraw — both signed by the USER's
+ * own wallet, sending the mSOL/wSOL to the token bridge's custody with the user's L2 wallet as the
+ * VAA recipient. v10 pulls the SPL as the user's delegate, so the grant is the user's own tx. The redeem on the L2 is a
  * separate, permissionless completeTransfer (v1: user-signed). Active only once the registry flips
  * to v11 AND the asset is allowlisted on it (D2 — every supported asset is allowlisted).
  */
 export async function deliverNative(
   signer: RomeSigner,
-  opts: { wrapper: string; amount: bigint; recipientEvm: string; targetChain: number },
+  opts: { wrapper: string; mint: string; amount: bigint; recipientEvm: string; targetChain: number },
 ): Promise<{ approveTx: string; egressTx: string }> {
   const withdraw = ROME_CHAIN.bridgeWithdraw as Address;
-  const approveTx = await signer.sendRomeTx(withdraw, encodeApproveWormholeBurn(opts.wrapper, opts.amount), 100_000_000n);
+  const approveTx = await signer.sendRomeTx(HELPER_PROGRAM, encodeApproveSplGrant(withdraw, opts.amount, opts.mint), 100_000_000n);
   const egressTx = await signer.sendRomeTx(
     withdraw,
     encodeTransferNativeToWormhole(opts.wrapper, opts.amount, evmRecipient32(opts.recipientEvm), opts.targetChain),
